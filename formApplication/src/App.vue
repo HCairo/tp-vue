@@ -5,49 +5,6 @@ import MainLayout from './components/Layout/MainLayout.vue'
 import MainNav from './components/Layout/MainNav.vue'
 import ProductsTable from "./components/Product/ProductTable.vue"
 
-const userNavItemsArray = ref([
-        {
-          name: "Settings",
-          link: "#",
-          target: "_self"
-        },
-        {
-          name: "Profile",
-          link: "#",
-          target: "_self"
-        }
-      ])
-
-const navItemsArray = ref([
-  {
-    name: "Edit",
-    link: "#",
-    target: "_self",
-    emit: [
-      { event: "updatePage", value: {"EditPage": true}}
-    ],
-    class: "link-body-emphasis"
-  },
-  {
-    name: "Preview",
-    link: "#",
-    emit: [
-      { event: "updatePage", value: {"PreviewPage": true}}
-    ],
-    target: "_self",
-    class: "link-body-emphasis"
-  },
-  {
-    name: "Settings",
-    link: "#",
-    emit: [
-      { event: "updatePage", value: {"settingsPage": true}}
-    ],
-    target: "_self",
-    class: "link-body-emphasis"
-  }
-])
-
 const products = ref([
   {
     id: 1,
@@ -140,11 +97,7 @@ onUpdated(() => {
 
 <template>
   <main-layout>
-    <main-nav
-      :navItems="navItemsArray"
-      :userNavItems="userNavItemsArray"
-      :showUserNav="false"
-    />
+    <main-nav/>
         <h2>Product Form</h2>
         <form @submit.prevent="submitProductForm">
             <label for="name" class="form-label">Nom</label>
