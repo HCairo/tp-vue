@@ -4,6 +4,7 @@ import {ref, onUpdated} from 'vue'
 import MainLayout from './components/Layout/MainLayout.vue'
 import MainNav from './components/Layout/MainNav.vue'
 import ProductsTable from "./components/Product/ProductTable.vue"
+import CategoryTable from "./components/Category/CategoryTable.vue"
 
 const products = ref([
   {
@@ -11,26 +12,61 @@ const products = ref([
     name: "Cookie",
     category: "Biscuit",
     description: "Very sweet, very good",
-    price: 20,
+    price: 8.99,
     vta: 20
   },
   {
     id: 2,
     name: "Chocolat",
-    category: "Sweet",
+    category: "Confiserie",
     description: "Good enough",
-    price: 4.99,
+    price: 2.99,
     vta: 20
+  }
+])
+
+const categories = ref([
+  {
+    id: 1,
+    catName: 'Biscuit',
+    catColor: '#4059AD',
+    catDescription: 'Rayon sucrerie'
   }
 ])
 
 // Data Product
 
-const name = ref ("Miel")
-const description = ref("Oh qu'ils sont bons !")
-const price = ref(99)
+const name = ref (null)
+const description = ref(null)
+const price = ref(null)
 const vta= ref(20)
-const category= ref("Sweet")
+const category= ref(null)
+const categoryOptions = ref([
+  {
+    name: 'Viande',
+    value: 'Meat'
+  },
+  {
+    name: 'Boisson',
+    value: 'Drink'
+  },
+  {
+    name: 'Legume',
+    value: 'Vegetable'
+  },
+  {
+    name: 'Confiserie',
+    value: 'Sweet'
+  },
+  {
+    name: 'Epice',
+    value: 'Spice'
+  },
+  {
+    name: 'Biscuit',
+    value: 'Biscuit'
+  },
+])
 
 // Data Category
 
@@ -59,13 +95,6 @@ const catColorOptions = ref([
     value: '#F1BF98'
   }
 ])
-const categories = ref([
-  {
-    catName: 'default',
-    catColor: 'text-bg-info',
-    catDescription: 'Default Category'
-  }
-])
 
 function submitProductForm() {
   products.value.push({
@@ -81,7 +110,7 @@ function submitProductForm() {
 function submitCategoryForm() {
   categories.value.push({
     id: categories.value.length + 1,
-    catMame: catName.value,
+    catName: catName.value,
     catColor: catColor.value,
     catDescription: catDescription.value
   })
@@ -100,7 +129,7 @@ onUpdated(() => {
     <main-nav/>
         <h2>Product Form</h2>
         <form @submit.prevent="submitProductForm">
-            <label for="name" class="form-label">Nom</label>
+            <label for="name">Nom</label>
             <!-- v-model permet de "bind" un input avec une data
             Le Bind est bi-directionnel, si on modifie l'input la data est modifiée,
             si on modifie la data, la valeur de l'input est modifiée. -->
@@ -113,18 +142,18 @@ onUpdated(() => {
               v-model="name"
               required
             >
-            <label for="price" class="form-label">Prix</label>
+            <label for="price">Prix</label>
             <input 
                 type="number"
                 class="form-control" 
                 id="price"
                 name="price"
-                min="1"
+                step="0.1"
                 aria-describedby="price-help"
                 v-model="price"
                 required
             >
-            <label for="vta" class="form-label">TVA</label>
+            <label for="vta">TVA</label>
             <input 
                 type="number"
                 class="form-control" 
@@ -134,19 +163,18 @@ onUpdated(() => {
                 v-model="vta"
                 required
             >
-            <label for="category" class="form-label">Catégorie</label>
+            <label for="category">Catégorie</label>
             <select 
                 id="category"
                 class="form-select" 
                 v-model="category"
                 required
             >
-              <option value="meat">Viande</option>
-              <option value="vegetable">Légume</option>
-              <option value="drink">Boisson</option>
-              <option value="sweet">Confiserie</option>
+              <option v-for="(item, index) in categoryOptions" :key="index" :value="item.value">
+                {{ item.name }}
+              </option>
             </select>
-            <label for="description" class="form-label">Description</label>
+            <label for="description">Description</label>
             <textarea 
                 class="form-control" 
                 id="description" 
@@ -158,13 +186,12 @@ onUpdated(() => {
           <button type="submit">Save</button>
         </form>
       <products-table
-        class="col-6"
         :products="products"  
       />
     <hr>
-        <h2>CATEGORIES FORM</h2>
+    <h2>Category Table</h2>
         <form @submit.prevent="submitCategoryForm">
-            <label for="cat-name" class="form-label">Name</label>
+            <label for="cat-name">Name</label>
             <!-- v-model permet de "bind" un input avec une data
             Le Bind est bi-directionnel, si on modifie l'input la data est modifiée,
             si on modifie la data, la valeur de l'input est modifiée. -->
@@ -177,18 +204,19 @@ onUpdated(() => {
               v-model="catName"
               required
             >
-            <label for="cat-color" class="form-label">Color</label>
+            <label for="cat-color">Color</label>
             <select 
                 id="cat-color"
                 class="form-select" 
                 v-model="catColor"
                 required
+                style="background: :catColorOptions(catColor);"
             >
               <option v-for="(item, index) in catColorOptions" :key="index" :value="item.value">
                 {{ item.name }}
               </option>
             </select>
-            <label for="cat-description" class="form-label">Description</label>
+            <label for="cat-description" >Description</label>
             <textarea 
                 class="form-control" 
                 id="cat-description" 
@@ -199,11 +227,22 @@ onUpdated(() => {
             </textarea>
           <button type="submit">Save</button>
         </form>
-        <h2>CATEGORIES TABLE</h2>
-        <!-- IMPORTER LE TABLEAU D'AFFICHAGE DES CATEGORIES -->
+        <category-table :categories="categories"/>
   </main-layout>
 </template>
 
 <style scoped>
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    padding: 10px;
+    width: 50%;
+    margin: 0 auto;
+  }
 
+  input{
+    
+  }
 </style>

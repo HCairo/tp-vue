@@ -14,7 +14,6 @@ const props = defineProps({
             default: 20
         }
     })
-
         /* 
             Utlisation d'une Computed  avec les données issus du template
             !!! SYNTAXE PARTICULIERE
@@ -32,15 +31,12 @@ const vtaCalculation = computed(() => (price, vta) => {
 const vtaCalculationLocal = computed (() => {
     let tax = (props.price / 100) * props.vta
     return props.price + tax})
-
 </script>
 
 <template>
-    <section id="products-table" class="container">
-        <h2 class="text-center">Products Table</h2>
-        <p>Exemple de Computed Local</p>
-        <p>{{ vtaCalculationLocal }}</p>
-        <table class="table">
+        <h2>Products Table</h2>
+        <p style="display: none;">{{ vtaCalculationLocal }}</p>
+        <table>
             <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -53,7 +49,7 @@ const vtaCalculationLocal = computed (() => {
                     <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider">
+            <tbody>
                 <tr 
                 v-for="(item, index) in products"
                 :key="index"
@@ -71,14 +67,11 @@ const vtaCalculationLocal = computed (() => {
                     <!-- Appel à une fonction computed -->
                     <td>{{ vtaCalculation(item.price, item.vta) }} €</td>
                     <td>
-                        <button 
-                            class="btn btn-primary"
-                        >
+                        <button>
                             Éditer
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </section>
 </template>
