@@ -18,7 +18,7 @@ const products = ref([
   {
     id: 2,
     name: "Chocolat",
-    category: "Confiserie",
+    category: "Sweet",
     description: "Good enough",
     price: 2.99,
     vta: 20
@@ -43,6 +43,10 @@ const vta= ref(20)
 const category= ref(null)
 const categoryOptions = ref([
   {
+    name: '',
+    value: ''
+  },
+  {
     name: 'Viande',
     value: 'Meat'
   },
@@ -64,7 +68,7 @@ const categoryOptions = ref([
   },
   {
     name: 'Biscuit',
-    value: 'Biscuit'
+    value: 'Cracker'
   },
 ])
 
@@ -74,6 +78,10 @@ const catName = ref(null)
 const catColor = ref(null)
 const catDescription = ref(null)
 const catColorOptions = ref([
+{
+    name: '',
+    value: ''
+  },
   {
     name: 'Blue',
     value: '#4059AD'
@@ -232,6 +240,11 @@ onUpdated(() => {
 </template>
 
 <style scoped>
+  *{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+  }
+
   form {
     display: flex;
     justify-content: center;
@@ -243,6 +256,23 @@ onUpdated(() => {
   }
 
   input{
-    
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  select{
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+  }
+
+  textarea{
+    border-radius: 8px;
+    resize: none;
+  }
+
+  label{
+    font-weight: 600;
+    font-size: 1.2em;
   }
 </style>

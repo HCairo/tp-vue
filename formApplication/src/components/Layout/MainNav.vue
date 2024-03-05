@@ -1,32 +1,34 @@
 <script setup>
-
-import { defineProps } from 'vue'
-
-const props = defineProps({
-            navItems: {
-                type: Array,
-                required: false,
-                default: function () {
-                    return null
-                }
-            },
-            showUserNav: {
-                type: Boolean,
-                required: false,
-                default: function () {
-                    return false
-                }
-            },
-            userNavItems: {
-                type: Array,
-                required: false,
-                default: function () {
-                    return null
-                }
-            }
-        })
 </script>
 
 <template>
-    Hello
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Market</a>
+        <a href="#">Contact</a>
+        <a href="#">Prices</a>
+    </nav>
 </template>
+
+<style scoped>
+    a{
+        color: white;;
+        text-decoration: none;
+        font-size: 1.1em;
+        font-weight: 600;
+        transition: all .5s;
+    }
+
+    a:hover{
+        font-size: 1.3em;
+    }
+
+    nav{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background: black;
+        width: 100%;
+        height: 100px;
+    }
+</style>

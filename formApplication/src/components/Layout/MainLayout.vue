@@ -2,10 +2,7 @@
 </script>
 <template>
     <div class="container">
-        <header
-            v-if="$slots.header"
-            class="p-3 mb-3 border-bottom"
-        >
+        <header v-if="$slots.header">
             <slot name="header"></slot>
         </header>
         <main>
@@ -19,3 +16,9 @@
         </footer>
     </div>
 </template>
+
+<style scoped>
+    .black-bg{
+        background: black;
+    }
+</style>
