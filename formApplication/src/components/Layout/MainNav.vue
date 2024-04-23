@@ -12,7 +12,7 @@
 
 <style scoped>
     a{
-        color: white;;
+        color: white;
         text-decoration: none;
         font-size: 1.1em;
         font-weight: 600;

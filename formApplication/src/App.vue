@@ -218,7 +218,7 @@ onUpdated(() => {
                 class="form-select" 
                 v-model="catColor"
                 required
-                style="background: :catColorOptions(catColor);"
+                style="background: catColorOptions(catColor);"
             >
               <option v-for="(item, index) in catColorOptions" :key="index" :value="item.value">
                 {{ item.name }}
