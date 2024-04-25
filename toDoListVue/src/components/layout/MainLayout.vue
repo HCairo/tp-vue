@@ -18,7 +18,4 @@
 </template>
 
 <style scoped>
-    .black-bg{
-        background: black;
-    }
 </style>

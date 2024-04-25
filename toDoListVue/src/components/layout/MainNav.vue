@@ -3,15 +3,13 @@
 
 <template>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">Market</a>
-        <a href="#">Contact</a>
-        <a href="#">Prices</a>
+        <a href="#">TODOLIST</a>
     </nav>
 </template>
 
 <style scoped>
     a{
+        font-family: 'Noto-Sans', sans-serif;
         color: white;
         text-decoration: none;
         font-size: 1.1em;
@@ -27,7 +25,7 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        background: black;
+        background: #6457A6;
         width: 100%;
         height: 100px;
     }
