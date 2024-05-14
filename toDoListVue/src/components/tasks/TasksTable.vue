@@ -32,10 +32,9 @@ const editTask = (index) => {
 }
 
 const saveEditedTask = () => {
-  // Mise a jour de la task
   Object.assign(props.tasks[editingTask.value], editedTask.value)
 
-  // Sauvegarde dans LocalStorage
+  // Update local storage
   localStorage.setItem('tasks', JSON.stringify(props.tasks))
 
   // Reset
@@ -56,12 +55,16 @@ const cancelEdit = () => {
 
 const deleteTask = (index) => {
   props.tasks.splice(index, 1)
+
+  // Update local storage
+  localStorage.setItem('tasks', JSON.stringify(props.tasks))
 }
 
 const toggleCompleted = (index) => {
-  Vue.set(props.tasks[index], 'completed', !props.tasks[index].completed);
-  localStorage.setItem('tasks', JSON.stringify(props.tasks))
-}
+  props.tasks[index].completed = !props.tasks[index].completed
+  // Update local storage
+  localStorage.setItem('tasks', JSON.stringify(props.tasks))}
+
 </script>
 
 <template>
