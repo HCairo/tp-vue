@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 
 const userId = ref('')
@@ -11,10 +10,10 @@ const postcode = ref('')
 const phone = ref('')
 const error = ref('')
 
-const userStore = useUserStore()
 const router = useRouter()
 
-userId.value = userStore.userId // Assuming you have a userId property in your user store
+// Placeholder userId; in a real application, this should be set dynamically
+userId.value = 1
 
 const submitForm = async () => {
   try {
@@ -45,12 +44,14 @@ const submitForm = async () => {
       // Redirect to a thank you page or homepage
       router.push('/thank-you')
     } else {
+      const responseData = await response.json()
       // Display error message if request fails
-      error.value = 'Failed to submit the form. Please try again later.'
+      error.value = responseData.message || 'Failed to submit the form. Please try again later.'
     }
-  } catch (error) {
-    console.error('Error submitting form:', error)
-    // Handle error
+  } catch (err) {
+    console.error('Error submitting form:', err)
+    // Display error message if request fails
+    error.value = 'An error occurred while submitting the form. Please try again later.'
   }
 }
 </script>
